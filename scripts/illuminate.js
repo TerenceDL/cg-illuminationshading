@@ -49,7 +49,7 @@ class GlApp {
         let phong_texture_fs = this.getFile('shaders/phong_texture.frag');
         let emissive_vs = this.getFile('shaders/emissive.vert');
         let emissive_fs = this.getFile('shaders/emissive.frag');
-        let variable = 0;
+        let projection_matrix = 0;
 
         Promise.all([gouraud_color_vs, gouraud_color_fs, gouraud_texture_vs, gouraud_texture_fs,
                      phong_color_vs, phong_color_fs, phong_texture_vs, phong_texture_fs,
