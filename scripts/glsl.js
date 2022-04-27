@@ -45,7 +45,7 @@ function glslGetShaderProgramUniforms(gl, program) {
 function glslCompileShader(gl, source, type) {
     // Create a shader object
     let shader = gl.createShader(type);
-
+    let x =7;
     // Send the source to the shader object
     gl.shaderSource(shader, source);
 
