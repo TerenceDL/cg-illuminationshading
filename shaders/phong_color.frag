@@ -18,14 +18,14 @@ out vec4 FragColor;
 void main() {
 
     vec3 L = normalize(light_ambient - frag_pos);
-    vec3 E = normalize(-frag_pos);
+
     vec3 R = normalize(-reflect(L, frag_normal));
 
     vec4 Ia = light_ambient;
 
     vec4 Id = (light_color*material_specular)*(R, normalize(light_position));
 
-    vec4 Is = material_specular
+    vec4 Is = material_specular;
 
 
     FragColor = vec4(material_color, 1.0);
