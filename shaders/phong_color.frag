@@ -5,7 +5,7 @@ precision mediump float;
 in vec3 frag_pos;
 in vec3 frag_normal;
 
-uniform vec3 light_ambient;
+uniform vec3 light_ambient; 
 uniform vec3 light_position;
 uniform vec3 light_color;
 uniform vec3 camera_position;
@@ -17,16 +17,23 @@ out vec4 FragColor;
 
 void main() {
 
-    vec3 L = normalize(light_ambient - frag_pos);
+    //calculate Ambient
+    vec3 ambient_light = light_ambient*material_color;
 
-    vec3 R = normalize(-reflect(L, frag_normal));
+    //calculate diffuse
+    vec3 L = normalize(light_position - frag_pos); //light dirention 
+    vec3 N = normalize(frag_normal);
+    float diff = max(dot(N, L), 0.0);
+    vec3 diffuse_light = diff * light_color;
 
-    vec4 Ia = light_ambient;
+    //calculate Specular 
+    float specularStrength = 10.0;
+    vec3 viewDir = normalize(camera_position - frag_pos);
+    vec3 R = normalize(-reflect(L, N)); //vec3 reflectDir = reflect(-lightDir, norm);  
+    float spec = pow(max(dot(viewDir, R), 0.0),material_shininess);
+    vec3 specular_light = specularStrength * spec * light_color;  
 
-    vec4 Id = (light_color*material_specular)*(R, normalize(light_position));
+    vec3 lighting = (ambient_light + diffuse_light + specular_light) * material_color;
+    FragColor = vec4(lighting, 1.0);
 
-    vec4 Is = material_specular;
-
-
-    FragColor = vec4(material_color, 1.0);
 }
