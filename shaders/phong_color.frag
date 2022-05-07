@@ -28,9 +28,9 @@ void main() {
 
     //calculate Specular 
     float specularStrength = 10.0;
-    vec3 viewDir = normalize(camera_position - frag_pos);
+    vec3 view_direction = normalize(camera_position - frag_pos);
     vec3 R = normalize(-reflect(L, N)); //vec3 reflectDir = reflect(-lightDir, norm);  
-    float spec = pow(max(dot(viewDir, R), 0.0),material_shininess);
+    float spec = pow(max(dot(view_direction, R), 0.0),material_shininess);
     vec3 specular_light = specularStrength * spec * light_color;  
 
     vec3 lighting = (ambient_light + diffuse_light + specular_light) * material_color;
