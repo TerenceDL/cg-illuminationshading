@@ -164,7 +164,20 @@ class GlApp {
             //
             // TODO: properly select shader here
             //
-            let selected_shader = 'gouraud_color';
+            let selected_shader = 'emmissive';
+            if (this.algorithm == 'gouraud') { 
+                if (this.scene.models[i].shader == 'color') {
+                    selected_shader = 'gouraud_color';
+                } else{
+                    selected_shader = 'gouraud_texture';
+                }
+            } else if(this.algorithm == 'phong'){ 
+                if (this.scene.models[i].shader == 'color') {
+                    selected_shader = 'phong_color';
+                } else{
+                    selected_shader = 'phong_texture';
+                }
+            }
             this.gl.useProgram(this.shader[selected_shader].program);
 
             // transform model to proper position, size, and orientation
