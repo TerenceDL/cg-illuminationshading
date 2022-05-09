@@ -94,19 +94,21 @@ class GlApp {
         this.gl.enable(this.gl.DEPTH_TEST);
 
         // create models - plane, cube, sphere, and custom
-        this.vertex_array.plane = createPlaneVertexArray(this.gl, this.vertex_position_attrib, 
-                                                                  this.vertex_normal_attrib,
-                                                                  this.vertex_texcoord_attrib);
-        this.vertex_array.cube = createCubeVertexArray(this.gl, this.vertex_position_attrib, 
-                                                                this.vertex_normal_attrib,
-                                                                this.vertex_texcoord_attrib);
-        this.vertex_array.sphere = createSphereVertexArray(this.gl, this.vertex_position_attrib, 
-                                                                    this.vertex_normal_attrib,
-                                                                    this.vertex_texcoord_attrib);
-        this.vertex_array.custom = createCustomVertexArray(this.gl, this.vertex_position_attrib, 
-                                                                    this.vertex_normal_attrib,
-                                                                    this.vertex_texcoord_attrib);
-
+         this.vertex_array.plane = createPlaneVertexArray(this.gl, this.vertex_position_attrib,
+            this.vertex_normal_attrib,
+            this.vertex_texcoord_attrib);
+            this.vertex_array.cube = createCubeVertexArray(this.gl, this.vertex_position_attrib,
+            this.vertex_normal_attrib,
+            this.vertex_texcoord_attrib);
+            this.vertex_array.sphere = createSphereVertexArray(this.gl, this.vertex_position_attrib,
+            this.vertex_normal_attrib,
+            this.vertex_texcoord_attrib);
+            this.vertex_array.pyramid = createPyramidVertexArray(this.gl, this.vertex_position_attrib,
+            this.vertex_normal_attrib,
+            this.vertex_texcoord_attrib);
+            this.vertex_array.custom = createCustomVertexArray(this.gl, this.vertex_position_attrib,
+            this.vertex_normal_attrib,
+            this.vertex_texcoord_attrib);
         // initialize projection matrix with a 45deg field of view
         let fov = 30.0 * (Math.PI / 180.0);
         let aspect = this.canvas.width / this.canvas.height;

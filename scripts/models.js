@@ -4,7 +4,7 @@ function createPlaneVertexArray(gl, position_attrib, normal_attrib, texcoord_att
     // set newly created Vertex Array Object as the active one we are modifying
     gl.bindVertexArray(vertex_array);
 
-    
+   
     // create buffer to store vertex positions (3D points)
     let vertex_position_buffer = gl.createBuffer();
     // set newly created buffer as the active one we are modifying
@@ -64,7 +64,7 @@ function createPlaneVertexArray(gl, position_attrib, normal_attrib, texcoord_att
     // (as 2-component floating point values)
     gl.vertexAttribPointer(texcoord_attrib, 2, gl.FLOAT, false, 0, 0);
 
-    
+   
     // create buffer to store faces of the triangle
     let vertex_index_buffer = gl.createBuffer();
     // set newly created buffer as the active one we are modifying
@@ -96,7 +96,7 @@ function createCubeVertexArray(gl, position_attrib, normal_attrib, texcoord_attr
     // set newly created Vertex Array Object as the active one we are modifying
     gl.bindVertexArray(vertex_array);
 
-    
+   
     // create buffer to store vertex positions (3D points)
     let vertex_position_buffer = gl.createBuffer();
     // set newly created buffer as the active one we are modifying
@@ -249,7 +249,7 @@ function createCubeVertexArray(gl, position_attrib, normal_attrib, texcoord_attr
     // (as 2-component floating point values)
     gl.vertexAttribPointer(texcoord_attrib, 2, gl.FLOAT, false, 0, 0);
 
-    
+   
     // create buffer to store faces of the triangle
     let vertex_index_buffer = gl.createBuffer();
     // set newly created buffer as the active one we are modifying
@@ -330,7 +330,7 @@ function createSphereVertexArray(gl, position_attrib, normal_attrib, texcoord_at
         }
     }
 
-    
+   
     // create buffer to store vertex positions (3D points)
     let vertex_position_buffer = gl.createBuffer();
     // set newly created buffer as the active one we are modifying
@@ -369,7 +369,7 @@ function createSphereVertexArray(gl, position_attrib, normal_attrib, texcoord_at
     // (as 2-component floating point values)
     gl.vertexAttribPointer(texcoord_attrib, 2, gl.FLOAT, false, 0, 0);
 
-    
+   
     // create buffer to store faces of the triangle
     let vertex_index_buffer = gl.createBuffer();
     // set newly created buffer as the active one we are modifying
@@ -391,9 +391,256 @@ function createSphereVertexArray(gl, position_attrib, normal_attrib, texcoord_at
 }
 
 //
-// TODO: create a custom 3D model
+// TODO: create a Custom 3D model
 //         - minimum of 16 vertices
 //
 function createCustomVertexArray(gl, position_attrib, normal_attrib, texcoord_attrib) {
-    return null;
+    //--------------------------------
+    // --- CURRENT CODE ---
+    //--------------------------------
+    let vertex_array = gl.createVertexArray();
+    gl.bindVertexArray(vertex_array);
+   
+    let vertex_position_buffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertex_position_buffer);
+
+    let verticies = [ // 5 right now
+        //front
+        0.25, 0.5, 0.0,
+        0.5, 0.5, 0.5,
+        0.25, 0.25, 0.5,
+        0.25, 0.75, 0.5,
+        0.0, 0.5, 0.5,
+        0.25, 0.5, 1.0,
+       
+        0.25, 0.75, 0.0,
+        0.5, 0.75, 0.5,
+        0.25, 0.5, 0.5,
+        0.25, 1.0, 0.5,
+        0.0, 0.75, 0.5,
+        0.25, 0.75, 1.0,
+
+        0.25, 1.0, 0.0,
+        0.5, 1.0, 0.5,
+        0.25, 0.75, 0.5,
+        0.25, 1.25, 0.5,
+        0.0, 1.0, 0.5,
+        0.25, 1.0, 1.0
+       
+    ];
+
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(verticies), gl.STATIC_DRAW);
+    gl.enableVertexAttribArray(position_attrib);
+    gl.vertexAttribPointer(position_attrib, 3, gl.FLOAT, false, 0, 0);
+
+    let vertex_normal_buffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertex_normal_buffer);
+
+    let normals = [
+        //front
+        0.0, 0.0, 1.0,
+        0.0, 0.0, 1.0,
+        0.0, 0.0, 1.0,
+        1.0, 0.0, 0.0,
+        1.0, 0.0, 0.0,
+        1.0, 0.0, 0.0,
+
+        0.0, 0.0, 1.0,
+        0.0, 0.0, 1.0,
+        0.0, 0.0, 1.0,
+        1.0, 0.0, 0.0,
+        1.0, 0.0, 0.0,
+        1.0, 0.0, 0.0,
+
+        0.0, 0.0, 1.0,
+        0.0, 0.0, 1.0,
+        0.0, 0.0, 1.0,
+        1.0, 0.0, 0.0,
+        1.0, 0.0, 0.0,
+        1.0, 0.0, 0.0,
+    ];
+
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(normals), gl.STATIC_DRAW);
+    gl.enableVertexAttribArray(normal_attrib);
+    gl.vertexAttribPointer(normal_attrib, 3, gl.FLOAT, false, 0, 0);
+
+    let vertex_texcoord_buffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertex_texcoord_buffer);
+
+    let texcoords = [
+        //front
+        0.0, 0.0,
+        1.0, 0.0,
+        1.0, 1.0,
+        0.0, 0.0,
+        1.0, 0.0,
+        1.0, 1.0,
+
+        0.0, 0.0,
+        1.0, 0.0,
+        1.0, 1.0,
+        0.0, 0.0,
+        1.0, 0.0,
+        1.0, 1.0,
+
+        0.0, 0.0,
+        1.0, 0.0,
+        1.0, 1.0,
+        0.0, 0.0,
+        1.0, 0.0,
+        1.0, 1.0,
+    ];
+
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(texcoords), gl.STATIC_DRAW);
+    gl.enableVertexAttribArray(texcoord_attrib);
+    gl.vertexAttribPointer(texcoord_attrib, 2, gl.FLOAT, false, 0, 0);
+
+    let vertex_index_buffer = gl.createBuffer();
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, vertex_index_buffer);
+
+    let indices = [
+        0, 1, 2,
+        0, 2, 3,
+        0, 3, 4,
+        0, 4, 1,
+        5, 1, 2,
+        5, 2, 3,
+        5, 3, 4,
+        5, 4, 1,
+
+        6, 7, 8,
+        6, 8, 9,
+        6, 9, 10,
+        6, 10, 7,
+        11, 7, 8,
+        11, 8, 9,
+        11, 9, 10,
+        11, 10, 7,
+
+        12, 13, 14,
+        12, 14, 15,
+        12, 15, 16,
+        12, 16, 13,
+        17, 13, 14,
+        17, 14, 15,
+        17, 15, 16,
+        17, 16, 13,
+       
+       
+    ];
+
+    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);
+    gl.bindVertexArray(null);
+    vertex_array.face_index_count = indices.length;
+    return vertex_array;
+}
+
+function createPyramidVertexArray(gl, position_attrib, normal_attrib, texcoord_attrib) {
+    //--------------------------------
+    // --- CURRENT CODE ---
+    //--------------------------------
+    let vertex_array = gl.createVertexArray();
+    gl.bindVertexArray(vertex_array);
+   
+    let vertex_position_buffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertex_position_buffer);
+
+    let verticies = [ // 5 right now
+        //front
+        0.0, 0.5, 0.0,
+        -0.5, -0.5, 0.5,
+        0.5, -0.5, 0.5,
+       
+        //right
+        0.0, 0.5, 0.0,
+        0.5, -0.5, 0.5,
+        0.5, -0.5, -0.5,
+
+        //back
+        0.0, 0.5, 0.0,
+        0.5, -0.5, -0.5,
+        -0.5, -0.5, -0.5,
+
+        //left
+        0.0, 0.5, 0.0,
+        -0.5, -0.5, -0.5,
+        -0.5, -0.5, 0.5,
+    ];
+
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(verticies), gl.STATIC_DRAW);
+    gl.enableVertexAttribArray(position_attrib);
+    gl.vertexAttribPointer(position_attrib, 3, gl.FLOAT, false, 0, 0);
+
+    let vertex_normal_buffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertex_normal_buffer);
+
+    let normals = [
+        //front
+        0.0, 0.0, 1.0,
+        0.0, 0.0, 1.0,
+        0.0, 0.0, 1.0,
+
+        //right
+        1.0, 0.0, 0.0,
+        1.0, 0.0, 0.0,
+        1.0, 0.0, 0.0,
+
+        //back
+        0.0, 0.0, -1.0,
+        0.0, 0.0, -1.0,
+        0.0, 0.0, -1.0,
+
+        //left
+        -1.0, 0.0, 0.0,
+        -1.0, 0.0, 0.0,
+        -1.0, 0.0, 0.0,
+    ];
+
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(normals), gl.STATIC_DRAW);
+    gl.enableVertexAttribArray(normal_attrib);
+    gl.vertexAttribPointer(normal_attrib, 3, gl.FLOAT, false, 0, 0);
+
+    let vertex_texcoord_buffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertex_texcoord_buffer);
+
+    let texcoords = [
+        //front
+        0.0, 0.0,
+        1.0, 0.0,
+        1.0, 1.0,
+
+        //right
+        0.0, 0.0,
+        1.0, 0.0,
+        1.0, 1.0,
+
+        //back
+        0.0, 0.0,
+        1.0, 0.0,
+        1.0, 1.0,
+
+        //left
+        0.0, 0.0,
+        1.0, 0.0,
+        1.0, 1.0,
+    ];
+
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(texcoords), gl.STATIC_DRAW);
+    gl.enableVertexAttribArray(texcoord_attrib);
+    gl.vertexAttribPointer(texcoord_attrib, 2, gl.FLOAT, false, 0, 0);
+
+    let vertex_index_buffer = gl.createBuffer();
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, vertex_index_buffer);
+
+    let indices = [
+        0, 1, 2,
+        3, 4, 5,
+        6, 7, 8,
+        9, 10, 11,
+    ];
+
+    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);
+    gl.bindVertexArray(null);
+    vertex_array.face_index_count = indices.length;
+    return vertex_array;
 }

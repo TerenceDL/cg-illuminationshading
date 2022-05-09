@@ -30,7 +30,7 @@ void main() {
     vec3 diffuse_light = diff * light_color;
 
     //calculate Specular 
-    float specularStrength = 5.0;
+    float specularStrength = 2.0;
     vec3 view_direction = normalize(camera_position - frag_pos);
     vec3 R = normalize(-reflect(L, N)); //vec3 reflectDir = reflect(-lightDir, norm);  
     float spec = pow(max(dot(view_direction, R), 0.0),material_shininess);
