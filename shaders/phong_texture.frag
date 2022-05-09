@@ -18,7 +18,7 @@ uniform sampler2D image;          // use in conjunction with Ka and Kd
 out vec4 FragColor;
 
 void main() {
-
+    
 
     //calculate Ambient
     vec3 ambient_light = light_ambient*material_color;

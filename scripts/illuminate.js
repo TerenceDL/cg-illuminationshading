@@ -49,7 +49,6 @@ class GlApp {
         let phong_texture_fs = this.getFile('shaders/phong_texture.frag');
         let emissive_vs = this.getFile('shaders/emissive.vert');
         let emissive_fs = this.getFile('shaders/emissive.frag');
-        
 
         Promise.all([gouraud_color_vs, gouraud_color_fs, gouraud_texture_vs, gouraud_texture_fs,
                      phong_color_vs, phong_color_fs, phong_texture_vs, phong_texture_fs,
@@ -62,16 +61,12 @@ class GlApp {
         this.shader.gouraud_color = this.createShaderProgram(shaders[0], shaders[1]);
         this.shader.gouraud_texture = this.createShaderProgram(shaders[2], shaders[3]);
         this.shader.phong_color = this.createShaderProgram(shaders[4], shaders[5]);
-        this.shader.phone_texture = this.createShaderProgram(shaders[6], shaders[7]);
+        this.shader.phong_texture = this.createShaderProgram(shaders[6], shaders[7]);
         this.shader.emissive = this.createShaderProgram(shaders[8], shaders[9]);
 
         this.initializeGlApp();
     }
     
-
- 
-
-
     createShaderProgram(vert_source, frag_source) {
         // Compile shader program
         let program = glslCreateShaderProgram(this.gl, vert_source, frag_source);
@@ -134,14 +129,14 @@ class GlApp {
         //
         // TODO: set texture parameters and upload a temporary 1px white RGBA array [255,255,255,255]
         // 
-    this.gl.bindTexture(this.gl.TEXTURE_2D,texture);
-    this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.LINEAR);
-    this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MIN_FILTER, this.gl.LINEAR);
-    this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.REPEAT);
-    this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, this.gl.REPEAT);
-    let pixels = [255,    255,    255,    255];
-    this.gl.texImage2D(this.gl.TEXTURE_2D, 0, this.gl.RGBA,1,1,0, this.gl.RGBA, this.gl.UNSIGNED_BYTE, new Uint8Array(pixels));    
-    this.gl.bindTexture(this.gl.TEXTURE_2D,null);        
+        this.gl.bindTexture(this.gl.TEXTURE_2D,texture);
+        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.LINEAR);
+        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MIN_FILTER, this.gl.LINEAR);
+        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.REPEAT);
+        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, this.gl.REPEAT);
+        let pixels = [255,    255,    255,    255];
+        this.gl.texImage2D(this.gl.TEXTURE_2D, 0, this.gl.RGBA,1,1,0, this.gl.RGBA, this.gl.UNSIGNED_BYTE, new Uint8Array(pixels));    
+        this.gl.bindTexture(this.gl.TEXTURE_2D,null);   
 
         // download the actual image
         let image = new Image();
@@ -163,7 +158,6 @@ class GlApp {
         this.gl.texImage2D(this.gl.TEXTURE_2D, 0, this.gl.RGBA, this.gl.RGBA, this.gl.UNSIGNED_BYTE, image_element);
         this.gl.bindTexture(this.gl.TEXTURE_2D, null);
         this.render();
-
     }
 
     render() {
@@ -177,7 +171,7 @@ class GlApp {
             //
             // TODO: properly select shader here
             //
-            let selected_shader = 'emmissive';
+            let selected_shader = 'emissive';
             if (this.algorithm == 'gouraud') { 
                 if (this.scene.models[i].shader == 'color') {
                     selected_shader = 'gouraud_color';
@@ -192,7 +186,7 @@ class GlApp {
                 }
             }
 
-
+            console.log(selected_shader);
             this.gl.useProgram(this.shader[selected_shader].program);
 
             // transform model to proper position, size, and orientation
@@ -207,7 +201,7 @@ class GlApp {
             this.gl.uniformMatrix4fv(this.shader[selected_shader].uniforms.projection_matrix, false, this.projection_matrix);
             this.gl.uniformMatrix4fv(this.shader[selected_shader].uniforms.view_matrix, false, this.view_matrix);
             this.gl.uniformMatrix4fv(this.shader[selected_shader].uniforms.model_matrix, false, this.model_matrix);
-        
+            
             //
             // TODO: bind proper texture and set uniform (if shader is a textured one)
             //
@@ -230,12 +224,9 @@ class GlApp {
                 this.gl.uniform2fv(this.shader[selected_shader].uniforms.texture_scale,this.scene.models[i].texture.scale); 
             }
 
-
             this.gl.bindVertexArray(this.vertex_array[this.scene.models[i].type]);
             this.gl.drawElements(this.gl.TRIANGLES, this.vertex_array[this.scene.models[i].type].face_index_count, this.gl.UNSIGNED_SHORT, 0);
             this.gl.bindVertexArray(null);
-
-            console.log(selected_shader);
         }
 
         // draw all light sources
